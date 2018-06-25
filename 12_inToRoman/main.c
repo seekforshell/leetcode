@@ -23,7 +23,9 @@ char *intToRoman(int num) {
 	    num /= 10;
 	
 	    char one,fiv,ten;
-	    one = roman[pow];fiv = roman[pow+1];ten = roman[pow+2];
+	    one = roman[pow];
+		if (pow + 1 < 7) fiv = roman[pow+1];
+		if (pow + 2 < 8) ten = roman[pow+2];
 
 		int roman_size = 0;
 	        
@@ -33,23 +35,23 @@ char *intToRoman(int num) {
 				st.data[st.top++] = one;
 		    }
 	    } else if (4 == mod) {
-			st.data[st.top++] = fiv;
 			st.data[st.top++] = one;
+			st.data[st.top++] = fiv;
 	    } else if (9 == mod) {
 			st.data[st.top++] = ten;
 			st.data[st.top++] = one;
 	    } else if (mod >=5 && mod < 9) {
+			st.data[st.top++] = fiv;
 	    	while (--mod >= 5) {
 				st.data[st.top++] = one;
 	    	}
-			st.data[st.top++] = fiv;
 	   	}
 //		printf("the step result:%s, the top:%d\r\n", st.data, st.top);
 		while (st.top-- > 0) {
 			*res = st.data[st.top];
 			res--;
 		}
-
+		printf("num:%d,pow:%d\r\n", num, pow);
 		pow += 2;
 	}
 
@@ -57,6 +59,6 @@ char *intToRoman(int num) {
 }
 
 int main() {
-	for (int i = 100 ; i < 2000; i+=100)
+	for (int i = 1 ; i < 20; i+=1)
 		printf("the integer:[%d], result:%s\r\n", i, intToRoman(i));
 }
